@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import logica.Medico;
 import persistencia.DAO.MedicoDAO;
+import persistencia.DAO.SedeDAO;
 import persistencia.DAOFactory;
 import presentacion.vistas.LoginView;
 
@@ -36,6 +37,9 @@ public class Modelo {
         List medicos = medicosDB.consultar();
         
         System.out.println("!!!" + ((Medico)medicos.get(0)).getId());
+        //System.out.println("!!!" + ((Medico)medicos.get(1)).getId());
+        
+        SedeDAO sedeDB = dbFactory.getSedeDAO();
     }
 
     public LoginView getVentanaLogin() {
