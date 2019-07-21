@@ -6,7 +6,9 @@
 package persistencia.DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import logica.Medico;
 import persistencia.DBConnection;
@@ -44,7 +46,29 @@ public class MedicoDAO extends DBConnection implements DAO {
 
     @Override
     public List<Object> consultar() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Object> lista = null;
+
+        try {
+            PreparedStatement st = conectarDB().prepareStatement("select * from doctor");
+
+            ResultSet rs = st.executeQuery();
+
+            lista = new ArrayList<Object>();
+
+            while (rs.next()) {
+                Medico medico = new Medico();
+                medico.setId(rs.getString("k_id"));
+
+                lista.add(medico);
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException ex) {
+            System.out.println("CuentasDAO: error");
+        }
+        close();
+
+        return lista;
     }
 
     @Override

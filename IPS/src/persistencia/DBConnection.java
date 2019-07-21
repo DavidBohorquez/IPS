@@ -17,16 +17,20 @@ import javax.swing.JOptionPane;
 public class DBConnection {
 
     private String url;
+    private String user;
+    private String password;
+
     protected Connection connect;
 
     public DBConnection() {
-        System.out.println("URL: " + getClass().getResource("/recursos/datos/gestor.db").getFile());
-        url = getClass().getResource("/recursos/datos/gestor.db").getFile() /*"G:\\gestor.db"*/;
+        url = "jdbc:postgresql://localhost:5432/gestor";
+        user = "postgres";
+        password = "postgre2019";
     }
 
     public Connection conectarDB() {
         try {
-            connect = DriverManager.getConnection("jdbc:postgresql:" + url);
+            connect = DriverManager.getConnection(url, user, password);
             connect.setAutoCommit(false);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos");

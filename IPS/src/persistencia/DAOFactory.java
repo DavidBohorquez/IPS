@@ -19,7 +19,7 @@ public class DAOFactory {
 
     }
 
-    public MedicoDAO getCuentasDB() {
+    public MedicoDAO getMedicosDB() {
         if (medicoDB == null) {
             medicoDB = new MedicoDAO();
         }
