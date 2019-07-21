@@ -6,8 +6,11 @@
 package presentacion.modelo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import logica.Medico;
+import logica.Sede;
+import persistencia.DAO.ConsultorioDAO;
 import persistencia.DAO.MedicoDAO;
 import persistencia.DAO.SedeDAO;
 import persistencia.DAOFactory;
@@ -23,23 +26,39 @@ public class Modelo {
 
     private DAOFactory dbFactory;
 
+    private ArrayList<Sede> sedes;
+
     public Modelo() {
         ventanaLogin = getVentanaLogin();
-        
+
         dbFactory = getDbFactory();
     }
 
     public void iniciar() throws SQLException {
         ventanaLogin.setVisible(true);
-        
+
         MedicoDAO medicosDB = dbFactory.getMedicosDB();
-        
-        List medicos = medicosDB.consultar();
-        
-        System.out.println("!!!" + ((Medico)medicos.get(0)).getId());
-        //System.out.println("!!!" + ((Medico)medicos.get(1)).getId());
-        
         SedeDAO sedeDB = dbFactory.getSedeDAO();
+
+        List medicos = medicosDB.consultar();
+
+        System.out.println("!!!" + ((Medico) medicos.get(0)).getId());
+
+        Sede sede = new Sede("Bosa");
+
+        System.out.println("nombreSede: " + sede.getNombre());
+        sedeDB.insertar(sede);
+    }
+
+    public void loadBranches() throws SQLException {
+        SedeDAO sedesDB = dbFactory.getSedeDAO();
+        ConsultorioDAO consultoriosDB = dbFactory.getConsultoriosDB();
+        
+        List sedes = sedesDB.consultar();
+
+        for (int i = 0; i < sedes.size(); i++) {
+            ((Sede) sedes.get(i)).setConsultorios(null);
+        }
     }
 
     public LoginView getVentanaLogin() {

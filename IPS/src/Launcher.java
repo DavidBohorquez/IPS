@@ -1,4 +1,5 @@
 
+import java.sql.SQLException;
 import presentacion.modelo.Modelo;
 
 /*
@@ -15,12 +16,12 @@ public class Launcher {
     
     private  Modelo gestor;
     
-    public Launcher() {
+    public Launcher() throws SQLException {
         gestor = new Modelo();
         gestor.iniciar();
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         new Launcher();
     }
     

@@ -14,7 +14,7 @@ public class Medico {
     private String id;
     private String[] nombre;
     private String tipoId;
-    
+
     public Medico() {
         nombre = new String[2];
     }
@@ -42,7 +42,5 @@ public class Medico {
     public void setTipoId(String tipoId) {
         this.tipoId = tipoId;
     }
-    
-    
-    
+
 }

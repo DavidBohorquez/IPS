@@ -15,19 +15,20 @@ import persistencia.DBConnection;
  *
  * @author Andre Sarmiento
  */
-public class SedeDAO extends DBConnection implements DAO{
+public class SedeDAO extends DBConnection implements DAO {
 
     @Override
     public void insertar(Object objeto) throws SQLException {
         try {
-            PreparedStatement st = conectarDB().prepareStatement("insert into sede (nombre) values (?)");
-
+            PreparedStatement st = conectarDB().prepareStatement("INSERT INTO sede (k_nombre) VALUES (?)");
+            System.out.println("SedeDAO: " + ((Sede) objeto).getNombre());
             st.setString(1, ((Sede) objeto).getNombre());
             st.executeUpdate();
             st.close();
+            connect.commit();
 
         } catch (SQLException ex) {
-            System.out.println("SedeDAO: error");
+            System.err.println("SedeDAO: error" + ex);
         }
         close();
     }
@@ -51,5 +52,5 @@ public class SedeDAO extends DBConnection implements DAO{
     public List<Object> consultarByName(Object objeto) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

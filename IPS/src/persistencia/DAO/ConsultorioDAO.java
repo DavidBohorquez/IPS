@@ -10,28 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import logica.Medico;
+import logica.Consultorio;
+import logica.Sede;
 import persistencia.DBConnection;
 
 /**
  *
  * @author Andre Sarmiento
  */
-public class MedicoDAO extends DBConnection implements DAO {
+public class ConsultorioDAO extends DBConnection implements DAO {
 
     @Override
     public void insertar(Object objeto) throws SQLException {
-        try {
-            PreparedStatement st = conectarDB().prepareStatement("INSERT INTO medicos (nombre) VALUES (?)");
-
-            st.setString(1, ((Medico) objeto).getNombre()[0]);
-            st.executeUpdate();
-            st.close();
-
-        } catch (SQLException ex) {
-            System.out.println("MedicoDAO: error");
-        }
-        close();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -46,34 +37,42 @@ public class MedicoDAO extends DBConnection implements DAO {
 
     @Override
     public List<Object> consultar() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Object> consultarByName(Object objeto) throws SQLException {
         List<Object> lista = null;
 
         try {
-            PreparedStatement st = conectarDB().prepareStatement("select * from doctor");
+            PreparedStatement st = conectarDB().prepareStatement("SELECT * FROM consultorio WHERE n_sede = ?");
+
+            st.setString(1, ((Sede) objeto).getNombre());
 
             ResultSet rs = st.executeQuery();
 
             lista = new ArrayList<Object>();
 
             while (rs.next()) {
-                Medico medico = new Medico();
-                medico.setId(rs.getString("k_id"));
+                Consultorio consultorio = new Consultorio((Sede) objeto);
 
-                lista.add(medico);
+                consultorio.setNumero(rs.getString("k_numero"));
+                consultorio.getSede().setNombre(rs.getString("n_sede"));
+                consultorio.setTipo(rs.getString("tipo"));
+                consultorio.setDesc(rs.getString("descp_equipo"));
+                //Médicos
+                consultorio.setFranja(rs.getTime("franja"));
+
+                lista.add(consultorio);
             }
             rs.close();
             st.close();
         } catch (SQLException ex) {
-            System.out.println("CuentasDAO: error");
+            System.out.println("ConsultorioDAO: error");
         }
         close();
 
         return lista;
-    }
-
-    @Override
-    public List<Object> consultarByName(Object objeto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
