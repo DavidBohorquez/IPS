@@ -13,20 +13,20 @@ import presentacion.modelo.Modelo;
  * @author Andre Sarmiento
  */
 public class LoginView extends javax.swing.JFrame {
-    
+
     private Modelo gestor;
     private LoginController controlador;
-    
+
     public LoginView(Modelo gestor) {
         this.gestor = gestor;
-        
+
         controlador = getControlador();
-        
+
         initComponents();
-        
+
         setLocationRelativeTo(null);
     }
-    
+
     public LoginController getControlador() {
         if (controlador == null) {
             controlador = new LoginController(this);

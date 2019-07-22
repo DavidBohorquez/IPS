@@ -11,6 +11,7 @@ import java.util.List;
 import logica.Cliente;
 import logica.Medico;
 import persistencia.DAO.ClienteDAO;
+import persistencia.DAO.GestorDAO;
 import persistencia.DAO.MedicoDAO;
 import persistencia.DAOFactory;
 import presentacion.vistas.LoginView;
@@ -47,30 +48,42 @@ public class Modelo {
 
         ventanaLogin.setVisible(true);
 
+        /*
+         Acá se realizaron las prubeas a la base de datos con inserciones directas y creacion de
+         objetos.
+         */
         /*GestorDAO gestorDB = dbFactory.getGestorDB();
 
-        List medicos = medicosDB.consultar();
+         List medicos = medicosDB.consultar();
 
-        for (int i = 0; i < medicos.size(); i++) {
-            System.out.println(((Medico) medicos.get(i)).getNombre()[0]);
-            System.out.println(((Medico) medicos.get(i)).getSede());
-            System.out.println(((Medico) medicos.get(i)).getEspecializacion());
-        }
+         for (int i = 0; i < medicos.size(); i++) {
+         System.out.println(((Medico) medicos.get(i)).getNombre()[0]);
+         System.out.println(((Medico) medicos.get(i)).getSede());
+         System.out.println(((Medico) medicos.get(i)).getEspecializacion());
+         }
 
-        List clientes = clientesDB.consultar();
+         List clientes = clientesDB.consultar();
 
-        System.out.println(((Cliente) clientes.get(0)).getNombre()[0]);
+         System.out.println(((Cliente) clientes.get(0)).getNombre()[0]);
 
-        System.out.println("CONSULTA CITAS\n" + gestorDB.consultarCitasDisp());
+         System.out.println("CONSULTA CITAS\n" + gestorDB.consultarCitasDisp());
 
-        Cliente cliente = new Cliente();
-        cliente.setId(1000614894);
+         Cliente cliente = new Cliente();
+         cliente.setId(1000614894);
 
-        gestorDB.asignarCita(1, "A", cliente);*/
+         gestorDB.asignarCita(1, "A", cliente);
+        
+         System.out.println("CONSULTA CITAS\n" + gestorDB.consultarCitasDisp());
+         gestorDB.insertarAgenda(medicos.get(0), "2019-07-19");
+         gestorDB.insertarCitasAgenda(medicos.get(0));*/
+    }
+
+    public void verificarLogin() {
+        //CÓDIGO PARA VERIFICACIÓN DE LOGIN DE USUARIO O MÉDICO
     }
 
     public void consultarCitas() {
-
+        //CÓDIGO PARA EL ARMADO DE LA TABLA DE LA VISTA DE LAS CITAS DISPONIBLES
     }
 
     public LoginView getVentanaLogin() {

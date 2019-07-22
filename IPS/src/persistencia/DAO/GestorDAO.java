@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import logica.Cliente;
+import logica.Medico;
 import persistencia.DBConnection;
 
 /**
@@ -33,6 +34,11 @@ public class GestorDAO extends DBConnection implements DAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+     Es la tabla de la primera vista que se refiere a las CITAS disponibles,
+     es decir, a las CITAS con estado 'A' y null en el campo de id del Cliente, o, a
+     las CITAS con estado 'C' y con nuemro de identificacion del Cliente.
+     */
     public String consultarCitasDisp() {
         String consulta = "";
 
@@ -51,7 +57,7 @@ public class GestorDAO extends DBConnection implements DAO {
                     + "AND	a.k_id = ci.k_id_agenda\n"
                     + "AND	p.k_id = m.k_id\n"
                     + "AND	((ci.i_estado = 'A' AND ci.k_id_cliente is null) \n"
-                    + "	OR (ci.i_estado = 'F'))");
+                    + "	OR (ci.i_estado = 'C'))");
 
             ResultSet rs = st.executeQuery();
 
@@ -74,6 +80,13 @@ public class GestorDAO extends DBConnection implements DAO {
         return consulta;
     }
 
+    /*
+     Este método asigna una cita disoponible o cancelada al cliente que previamente
+     realizó su login.
+    
+     El código comentariado se realizó para probar la actulización de una cita. Los dos últomos
+     campos del String de la consulta arroja el estado de la CITA y el id de la CITA.
+     */
     public void asignarCita(int idCita, String estadoCita, Cliente cliente) {
         /*String consulta = consultarCitasDisp();
          String [] data = consulta.split("/");
@@ -108,36 +121,81 @@ public class GestorDAO extends DBConnection implements DAO {
 
     @Override
     public List<Object> consultarByName(Object objeto) throws SQLException {
-        List<Object> lista = null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-        /*try {
-         PreparedStatement st = conectarDB().prepareStatement("select * from transacciones where cuenta = ?");
+    /*
+     El proposito es que crea una nueva agenda para un medico
+     */
+    public void insertarAgenda(Medico med, String fecha) {
+        try {
+            int agendaMaxima;
 
-         st.setString(1, ((Cuenta) objeto).getNombre());
+            PreparedStatement st = conectarDB().prepareStatement("select MAX(k_id) "
+                    + "from agenda;");
 
-         ResultSet rs = st.executeQuery();
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            agendaMaxima = rs.getInt(1);
 
-         lista = new ArrayList<Object>();
+            st = conectarDB().prepareStatement("INSERT INTO Agenda "
+                    + "( k_id, f_fecha , i_estado , k_id_med) "
+                    + "VALUES "
+                    + "( " + (agendaMaxima + 1) + ", '" + fecha + "' ,  'A' , '" + med.getId() + "');");
+            st.executeUpdate();
 
-         while (rs.next()) {
-         Transaccion trans = new Transaccion((Cuenta) objeto);
+            rs.close();
+            st.close();
+            connect.commit();
+        } catch (SQLException ex) {
+            System.out.println("CuentasDAO: error" + ex);
+        }
+        close();
+    }
 
-         trans.setId(rs.getString("id"));
-         trans.getCategoria().setTipo(rs.getString("tipo"));
-         trans.getCategoria().setNombre(rs.getString("categoria"));
-         trans.setValor(rs.getFloat("valor"));
-         trans.setFecha(rs.getString("fecha"));
+    /*
+     El proposito es que para la agenda que se le crea al medico, se le ponen
+     automaticamente 3 citas
+     */
+    public void insertarCitasAgenda(Medico med) {
+        try {
+            int agendaMaxima;
+            int citaMaxima;
+            String esp = med.getEspecializacion();
 
-         lista.add(trans);
-         }
-         rs.close();
-         st.close();
-         } catch (SQLException ex) {
-         System.out.println("TransDAO: error");
-         }
-         close();
-         */
-        return lista;
+            PreparedStatement st = conectarDB().prepareStatement("select MAX(k_id) "
+                    + "from agenda;");
+
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            agendaMaxima = rs.getInt(1);
+
+            for (int i = 1; i <= 3; i++) {
+                st = conectarDB().prepareStatement("select MAX(k_id) "
+                        + "from cita;");
+                rs = st.executeQuery();
+                rs.next();
+                citaMaxima = rs.getInt(1);
+
+                st = conectarDB().prepareStatement("INSERT INTO Cita "
+                        + "( k_id,  i_estado , preescripcion , diagnostico , "
+                        + "k_id_cliente, k_id_agenda, h_inicial , h_final , "
+                        + "k_tipo_cita,k_id_multa )"
+                        + "VALUES "
+                        + "(" + (citaMaxima + 1) + ", 'A' , null, null, null, "
+                        + "'" + agendaMaxima + "',TIME'" + med.gethIncial() + "',"
+                        + "TIME'" + med.gethFinal() + "',"
+                        + "'" + med.getEspecializacion() + "',null);");
+                st.executeUpdate();
+                rs.close();
+                st.close();
+                connect.commit();
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("CuentasDAO: error" + ex);
+        }
+        close();
     }
 
 }

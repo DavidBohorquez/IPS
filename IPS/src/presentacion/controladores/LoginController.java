@@ -13,10 +13,10 @@ import presentacion.vistas.LoginView;
  *
  * @author Andre Sarmiento
  */
-public class LoginController implements ActionListener{
-    
+public class LoginController implements ActionListener {
+
     private LoginView login;
-    
+
     public LoginController(LoginView login) {
         this.login = login;
     }
@@ -25,5 +25,5 @@ public class LoginController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

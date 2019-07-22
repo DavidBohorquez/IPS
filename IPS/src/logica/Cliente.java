@@ -16,10 +16,6 @@ public class Cliente extends Persona {
     private String estadoMulta;
     private Categoria categoria;
 
-    public Cliente() {
-        
-    }
-    
     public Cliente(Categoria categoria) {
         this.categoria = categoria;
     }
