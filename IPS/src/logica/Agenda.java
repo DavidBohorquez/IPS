@@ -6,6 +6,7 @@
 package logica;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,10 +17,10 @@ public class Agenda {
     private int id;
     private Date fecha;
     private char estado;
-    private Cita cita;
+    private ArrayList<Cita> citas;
 
-    public Agenda(Cita cita) {
-        this.cita = cita;
+    public Agenda(ArrayList<Cita> citas) {
+        this.citas = citas;
     }
 
     public int getId() {
@@ -46,12 +47,12 @@ public class Agenda {
         this.estado = estado;
     }
 
-    public Cita getCita() {
-        return cita;
+    public ArrayList<Cita> getCita() {
+        return citas;
     }
 
-    public void setCita(Cita cita) {
-        this.cita = cita;
+    public void setCita(ArrayList<Cita> cita) {
+        this.citas = citas;
     }
 
 }

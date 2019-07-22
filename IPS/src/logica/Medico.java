@@ -6,6 +6,7 @@
 package logica;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Medico extends Persona {
     private String consultorio;
     private String sede;
     private String especializacion;
-    private Agenda agenda;
+    private ArrayList<Agenda> agendas;
 
     public Medico() {
 
@@ -65,12 +66,12 @@ public class Medico extends Persona {
         this.sede = sede;
     }
 
-    public Agenda getAgenda() {
-        return agenda;
+    public ArrayList<Agenda> getAgenda() {
+        return agendas;
     }
 
-    public void setAgenda(Agenda agenda) {
-        this.agenda = agenda;
+    public void setAgenda(ArrayList<Agenda> agenda) {
+        this.agendas = agenda;
     }
 
     public String getEspecializacion() {

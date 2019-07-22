@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import logica.Medico;
+import persistencia.DAO.ClienteDAO;
 import persistencia.DAO.MedicoDAO;
 import persistencia.DAOFactory;
 import presentacion.vistas.LoginView;
@@ -39,11 +40,15 @@ public class Modelo {
 
         List medicos = medicosDB.consultar();
 
-        System.out.println("!!!" + ((Medico) medicos.get(0)).getCodEsp());
+        //System.out.println(((Medico) medicos.get(0)).getCodEsp());
         
         for (int i = 0; i < medicos.size(); i++) {
-            System.out.println("!!!" + ((Medico) medicos.get(i)).getId());
+            System.out.println(((Medico) medicos.get(i)).getNombre()[0]);
+            System.out.println(((Medico) medicos.get(i)).getSede());
         }
+        
+        ClienteDAO clientesDB = dbFactory.getClientesDB();
+        List clientes = clientesDB.consultar();
 
         /*Sede sede = new Sede("Bosa");
 
