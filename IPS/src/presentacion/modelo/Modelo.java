@@ -39,6 +39,8 @@ public class Modelo {
 
         List medicos = medicosDB.consultar();
 
+        System.out.println("!!!" + ((Medico) medicos.get(0)).getCodEsp());
+        
         for (int i = 0; i < medicos.size(); i++) {
             System.out.println("!!!" + ((Medico) medicos.get(i)).getId());
         }

@@ -61,6 +61,7 @@ public class MedicoDAO extends DBConnection implements DAO {
 
             while (rs.next()) {
                 Medico medico = new Medico();
+                System.out.println("DAO "+rs.getString("k_cod_esp").toString());
                 medico.setCodEsp(rs.getString("k_cod_esp"));
 
                 lista.add(medico);
