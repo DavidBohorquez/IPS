@@ -20,7 +20,7 @@ public class Medico extends Persona {
     private String consultorio;
     private String sede;
     private String especializacion;
-    private ArrayList<Agenda> agendas;
+    private String agendaEstado;
 
     public Medico() {
 
@@ -66,12 +66,12 @@ public class Medico extends Persona {
         this.sede = sede;
     }
 
-    public ArrayList<Agenda> getAgenda() {
-        return agendas;
+    public String getAgenda() {
+        return agendaEstado;
     }
 
-    public void setAgenda(ArrayList<Agenda> agenda) {
-        this.agendas = agenda;
+    public void setAgenda(String agenda) {
+        this.agendaEstado = agenda;
     }
 
     public String getEspecializacion() {

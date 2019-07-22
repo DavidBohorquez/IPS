@@ -6,6 +6,7 @@
 package persistencia;
 
 import persistencia.DAO.ClienteDAO;
+import persistencia.DAO.GestorDAO;
 import persistencia.DAO.MedicoDAO;
 
 /**
@@ -16,6 +17,7 @@ public class DAOFactory {
 
     private MedicoDAO medicosDB;
     private ClienteDAO clientesDB;
+    private GestorDAO gestorDB;
 
     public DAOFactory() {
 
@@ -27,10 +29,19 @@ public class DAOFactory {
         }
         return medicosDB;
     }
-        public ClienteDAO getClientesDB() {
+
+    public ClienteDAO getClientesDB() {
         if (clientesDB == null) {
             clientesDB = new ClienteDAO();
         }
         return clientesDB;
     }
+
+    public GestorDAO getGestorDB() {
+        if (gestorDB == null) {
+            gestorDB = new GestorDAO();
+        }
+        return gestorDB;
+    }
+
 }

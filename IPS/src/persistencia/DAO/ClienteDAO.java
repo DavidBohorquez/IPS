@@ -38,7 +38,6 @@ public class ClienteDAO extends DBConnection implements DAO {
     @Override
     public List<Object> consultar() throws SQLException {
         List<Object> lista = null;
-        
 
         try {
             PreparedStatement st = conectarDB().prepareStatement("select *, per.k_id as id "
@@ -54,9 +53,9 @@ public class ClienteDAO extends DBConnection implements DAO {
                 Cliente cliente = new Cliente(
                         new Categoria(
                                 rs.getString("k_tipo").charAt(0),
-                                rs.getInt("v_copago"), 
+                                rs.getInt("v_copago"),
                                 rs.getInt("v_multa")));
-                
+
                 cliente.setId(rs.getInt("id"));
                 cliente.setTipoId(rs.getString("i_tipo_id"));
                 cliente.setSexo(rs.getString("i_sexo"));
@@ -69,12 +68,10 @@ public class ClienteDAO extends DBConnection implements DAO {
                 cliente.setEstado(rs.getString("i_estado"));
                 cliente.setParentesco(rs.getString("k_parentesco"));
                 cliente.setEstadoMulta(rs.getString("estado_multa"));
+
                 lista.add(cliente);
-                System.out.println(cliente.getId());
-                System.out.println(cliente.getCorreo());
-                System.out.println(cliente.getCategoria().getTipo());
             }
-            
+
             rs.close();
             st.close();
         } catch (SQLException ex) {
@@ -89,5 +86,5 @@ public class ClienteDAO extends DBConnection implements DAO {
     public List<Object> consultarByName(Object objeto) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

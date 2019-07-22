@@ -8,8 +8,10 @@ package presentacion.modelo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import logica.Cliente;
 import logica.Medico;
 import persistencia.DAO.ClienteDAO;
+import persistencia.DAO.GestorDAO;
 import persistencia.DAO.MedicoDAO;
 import persistencia.DAOFactory;
 import presentacion.vistas.LoginView;
@@ -36,24 +38,24 @@ public class Modelo {
         ventanaLogin.setVisible(true);
 
         MedicoDAO medicosDB = dbFactory.getMedicosDB();
-        //SedeDAO sedeDB = dbFactory.getSedeDAO();
+
+        ClienteDAO clientesDB = dbFactory.getClientesDB();
+
+        GestorDAO gestorDB = dbFactory.getGestorDB();
 
         List medicos = medicosDB.consultar();
 
-        //System.out.println(((Medico) medicos.get(0)).getCodEsp());
-        
         for (int i = 0; i < medicos.size(); i++) {
             System.out.println(((Medico) medicos.get(i)).getNombre()[0]);
             System.out.println(((Medico) medicos.get(i)).getSede());
+            System.out.println(((Medico) medicos.get(i)).getEspecializacion());
         }
-        
-        ClienteDAO clientesDB = dbFactory.getClientesDB();
+
         List clientes = clientesDB.consultar();
 
-        /*Sede sede = new Sede("Bosa");
+        System.out.println(((Cliente) clientes.get(0)).getNombre()[0]);
 
-         System.out.println("nombreSede: " + sede.getNombre());
-         sedeDB.insertar(sede);*/
+        System.out.println("CONSULTA CITAS\n" + gestorDB.consultarCitasDisp());
     }
 
     public void consultarCitas() {
