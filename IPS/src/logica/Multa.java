@@ -8,6 +8,10 @@ public class Multa {
     private int id;
     private char estado;
     private int valor;
+    
+    public Multa() {
+        
+    }
 
     public int getId() {
         return id;

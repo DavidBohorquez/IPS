@@ -18,6 +18,7 @@ public class Medico extends Persona {
     private Time hFinal;
     private String consultorio;
     private String sede;
+    private String especializacion;
     private Agenda agenda;
 
     public Medico() {
@@ -70,6 +71,14 @@ public class Medico extends Persona {
 
     public void setAgenda(Agenda agenda) {
         this.agenda = agenda;
+    }
+
+    public String getEspecializacion() {
+        return especializacion;
+    }
+
+    public void setEspecializacion(String especializacion) {
+        this.especializacion = especializacion;
     }
 
 }
