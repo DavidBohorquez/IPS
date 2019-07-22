@@ -8,7 +8,6 @@ package persistencia.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import logica.Cliente;
 import persistencia.DBConnection;
@@ -52,7 +51,7 @@ public class GestorDAO extends DBConnection implements DAO {
                     + "AND	a.k_id = ci.k_id_agenda\n"
                     + "AND	p.k_id = m.k_id\n"
                     + "AND	((ci.i_estado = 'A' AND ci.k_id_cliente is null) \n"
-                    + "	OR (ci.i_estado = 'C'))");
+                    + "	OR (ci.i_estado = 'F'))");
 
             ResultSet rs = st.executeQuery();
 
@@ -75,22 +74,29 @@ public class GestorDAO extends DBConnection implements DAO {
         return consulta;
     }
 
-    public void asignarCita(String idCita, Cliente cliente) {
-        /*try {
-         PreparedStatement st = conectarDB().prepareStatement("UPDATE cita \n"
-         + "SET i_estado = ?,\n"
-         + "    k_id_cliente = ?\n"
-         + "WHERE k_id = ?;");
+    public void asignarCita(int idCita, String estadoCita, Cliente cliente) {
+        /*String consulta = consultarCitasDisp();
+         String [] data = consulta.split("/");
+        
+         System.out.println("DATA: " + data[data.length -1] + "--" +data[data.length - 2]);*/
+        System.out.println(idCita + ":" + estadoCita + ":" + cliente.getId());
 
-         st.setString(1, idCita);
-         st.setString(2, cliente.);
-         st.executeUpdate();
-         st.close();
+        try {
+            PreparedStatement st = conectarDB().prepareStatement("UPDATE cita \n"
+                    + "SET i_estado = ?,\n"
+                    + "    k_id_cliente = ?\n"
+                    + "WHERE k_id = ?;");
 
-         } catch (SQLException ex) {
-         System.out.println("CuentasDAO: error");
-         }
-         close();*/
+            st.setString(1, estadoCita);
+            st.setInt(2, cliente.getId());
+            st.setInt(3, idCita);
+            st.executeUpdate();
+            st.close();
+            connect.commit();
+        } catch (SQLException ex) {
+            System.err.println("CuentasDAO: error" + ex);
+        }
+        close();
     }
 
     @Override

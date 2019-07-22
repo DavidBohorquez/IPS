@@ -11,7 +11,6 @@ import java.util.List;
 import logica.Cliente;
 import logica.Medico;
 import persistencia.DAO.ClienteDAO;
-import persistencia.DAO.GestorDAO;
 import persistencia.DAO.MedicoDAO;
 import persistencia.DAOFactory;
 import presentacion.vistas.LoginView;
@@ -22,26 +21,33 @@ import presentacion.vistas.LoginView;
  */
 public class Modelo {
 
+    private ArrayList<Medico> medicos;
+    private ArrayList<Cliente> clientes;
+
     private LoginView ventanaLogin;
 
     private DAOFactory dbFactory;
 
-    private ArrayList<Medico> medicos;
-
-    public Modelo() {
-        ventanaLogin = getVentanaLogin();
-
-        dbFactory = getDbFactory();
+    public Modelo() throws SQLException {
+        iniciar();
     }
 
     public void iniciar() throws SQLException {
-        ventanaLogin.setVisible(true);
+        dbFactory = getDbFactory();
 
         MedicoDAO medicosDB = dbFactory.getMedicosDB();
 
         ClienteDAO clientesDB = dbFactory.getClientesDB();
 
-        GestorDAO gestorDB = dbFactory.getGestorDB();
+        clientes = (ArrayList<Cliente>) (List) clientesDB.consultar();
+
+        medicos = (ArrayList<Medico>) (List) medicosDB.consultar();
+
+        ventanaLogin = getVentanaLogin();
+
+        ventanaLogin.setVisible(true);
+
+        /*GestorDAO gestorDB = dbFactory.getGestorDB();
 
         List medicos = medicosDB.consultar();
 
@@ -56,6 +62,11 @@ public class Modelo {
         System.out.println(((Cliente) clientes.get(0)).getNombre()[0]);
 
         System.out.println("CONSULTA CITAS\n" + gestorDB.consultarCitasDisp());
+
+        Cliente cliente = new Cliente();
+        cliente.setId(1000614894);
+
+        gestorDB.asignarCita(1, "A", cliente);*/
     }
 
     public void consultarCitas() {
