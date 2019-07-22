@@ -40,10 +40,11 @@ public class Modelo {
 
         List medicos = medicosDB.consultar();
 
-        System.out.println("!!!" + ((Medico) medicos.get(0)).getCodEsp());
+        //System.out.println(((Medico) medicos.get(0)).getCodEsp());
         
         for (int i = 0; i < medicos.size(); i++) {
-            System.out.println("!!!" + ((Medico) medicos.get(i)).getId());
+            System.out.println(((Medico) medicos.get(i)).getNombre()[0]);
+            System.out.println(((Medico) medicos.get(i)).getSede());
         }
         
         ClienteDAO clientesDB = dbFactory.getClientesDB();

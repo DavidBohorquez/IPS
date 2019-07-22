@@ -53,7 +53,10 @@ public class MedicoDAO extends DBConnection implements DAO {
         List<Object> lista = null;
 
         try {
-            PreparedStatement st = conectarDB().prepareStatement("select * from doctor");
+            PreparedStatement st = conectarDB().prepareStatement("select *,"
+                    + " per.k_id as id "
+                    + "from persona per, doctor doc "
+                    + "where per.k_id = doc.k_id;");
 
             ResultSet rs = st.executeQuery();
 
@@ -61,9 +64,17 @@ public class MedicoDAO extends DBConnection implements DAO {
 
             while (rs.next()) {
                 Medico medico = new Medico();
-                System.out.println("DAO "+rs.getString("k_cod_esp").toString());
-                medico.setCodEsp(rs.getString("k_cod_esp"));
-
+                medico.setId(rs.getInt("id"));
+                medico.setTipoId(rs.getString("i_tipo_id"));
+                medico.setSexo(rs.getString("i_sexo"));
+                medico.setFechaNacimiento(rs.getDate("f_nacimiento"));
+                medico.setCorreo(rs.getString("n_correo"));
+                medico.setTelefono(rs.getString("tel_contacto"));
+                medico.setPassword(rs.getString("password"));
+                medico.getNombre()[0] = rs.getString("n_nombre");
+                medico.getNombre()[1] = rs.getString("n_apellido");
+                
+                medico.setSede(rs.getString("k_sede"));
                 lista.add(medico);
             }
             rs.close();
