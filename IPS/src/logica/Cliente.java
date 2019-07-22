@@ -19,6 +19,9 @@ public class Cliente extends Persona {
     public Cliente(Categoria categoria) {
         this.categoria = categoria;
     }
+    public Cliente() {
+    }
+    
 
     public String getEstado() {
         return estado;
