@@ -25,17 +25,10 @@ public class MedicoDAO extends DBConnection implements DAO {
             PreparedStatement st = conectarDB().prepareStatement("INSERT INTO doctor (k_id, i_tipo_id, i_sexo, f_nacimiento, "
                     + "n_correo, tel_contacto, password, n_nombre, n_apellido, k_id, k_cod_esp) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
-            st.setString(1, ((Medico) objeto).getId());
+            st.setInt(1, ((Medico) objeto).getId());
             st.setString(2, ((Medico) objeto).getTipoId());
             st.setString(3, ((Medico) objeto).getNombre()[0]);
-            st.setString(4, ((Medico) objeto).getNombre()[0]);
-            st.setString(5, ((Medico) objeto).getNombre()[0]);
-            st.setString(6, ((Medico) objeto).getNombre()[0]);
-            st.setString(7, ((Medico) objeto).getNombre()[0]);
-            st.setString(8, ((Medico) objeto).getId());
-            st.setString(9, ((Medico) objeto).getId());
-            st.setString(10, ((Medico) objeto).getId());
-            st.setString(11, ((Medico) objeto).getId());
+            st.setString(4, ((Medico) objeto).getNombre()[1]);
             st.executeUpdate();
             st.close();
 
@@ -68,7 +61,7 @@ public class MedicoDAO extends DBConnection implements DAO {
 
             while (rs.next()) {
                 Medico medico = new Medico();
-                medico.setId(rs.getString("k_id"));
+                medico.setCodEsp(rs.getString("k_cod_esp"));
 
                 lista.add(medico);
             }

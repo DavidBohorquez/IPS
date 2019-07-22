@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class Persona {
 
-    protected String id;
+    protected int id;
     protected String tipoId;
     protected String sexo;
     protected Date fechaNacimiento;
@@ -26,11 +26,11 @@ public class Persona {
         nombre = new String[2];
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
