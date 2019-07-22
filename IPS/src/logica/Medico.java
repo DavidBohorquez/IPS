@@ -9,38 +9,20 @@ package logica;
  *
  * @author Andre Sarmiento
  */
-public class Medico {
+public class Medico extends Persona {
 
-    private String id;
-    private String[] nombre;
-    private String tipoId;
+    private String codEsp;
 
     public Medico() {
-        nombre = new String[2];
+
     }
 
-    public String getId() {
-        return id;
+    public String getCodEsp() {
+        return codEsp;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String[] getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String[] nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTipoId() {
-        return tipoId;
-    }
-
-    public void setTipoId(String tipoId) {
-        this.tipoId = tipoId;
+    public void setCodEsp(String codEsp) {
+        this.codEsp = codEsp;
     }
 
 }

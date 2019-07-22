@@ -5,9 +5,7 @@
  */
 package persistencia;
 
-import persistencia.DAO.ConsultorioDAO;
 import persistencia.DAO.MedicoDAO;
-import persistencia.DAO.SedeDAO;
 
 /**
  *
@@ -16,8 +14,6 @@ import persistencia.DAO.SedeDAO;
 public class DAOFactory {
 
     private MedicoDAO medicosDB;
-    private SedeDAO sedesDB;
-    private ConsultorioDAO consultoriosDB;
 
     public DAOFactory() {
 
@@ -28,19 +24,5 @@ public class DAOFactory {
             medicosDB = new MedicoDAO();
         }
         return medicosDB;
-    }
-    
-    public SedeDAO getSedeDAO() {
-        if(sedesDB == null) {
-            sedesDB = new SedeDAO();
-        }
-        return sedesDB;
-    }
-
-    public ConsultorioDAO getConsultoriosDB() {
-        if(consultoriosDB == null) {
-            consultoriosDB = new ConsultorioDAO();
-        }
-        return consultoriosDB;
     }
 }

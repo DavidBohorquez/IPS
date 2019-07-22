@@ -23,7 +23,7 @@ public class DBConnection {
     protected Connection connect;
 
     public DBConnection() {
-        url = "jdbc:postgresql://localhost:5432/gestor1";
+        url = "jdbc:postgresql://localhost:5432/gestor";
         user = "postgres";
         password = "postgre2019";
     }
